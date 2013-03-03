@@ -16,6 +16,20 @@ import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 public class EditNoteActivity extends Activity {
+	private final class ConfirmDeletePositiveButtonListener implements
+			DialogInterface.OnClickListener {
+		@Override
+		public void onClick(final DialogInterface dialog, final int which) {
+			mNote.delete();
+			mNote = null;
+
+			Toast.makeText(EditNoteActivity.this, "note deleted",
+					Toast.LENGTH_SHORT).show();
+
+			finish();
+		}
+	}
+
 	private final class MyTextWatcher implements TextWatcher {
 		private boolean isFirst = true;
 
@@ -104,17 +118,8 @@ public class EditNoteActivity extends Activity {
 					.setIcon(android.R.drawable.ic_dialog_alert)
 					.setMessage("Confirm delete note?")
 					.setPositiveButton(android.R.string.yes,
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(
-										final DialogInterface dialog,
-										final int which) {
-									mNote.delete();
-									mNote = null;
-									finish();
-								}
-							}).setNegativeButton(android.R.string.no, null)
-					.show();
+							new ConfirmDeletePositiveButtonListener())
+					.setNegativeButton(android.R.string.no, null).show();
 
 			return true;
 		} else if (item_id == R.id.editnote_menu_share) {
