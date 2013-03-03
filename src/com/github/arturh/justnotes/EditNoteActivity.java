@@ -29,12 +29,14 @@ public class EditNoteActivity extends Activity implements
 		final Bundle extras = getIntent().getExtras();
 		if (extras != null && extras.containsKey(EXTRA_NOTE_ID)) {
 			final long note_id = extras.getLong(EXTRA_NOTE_ID);
+			mNote = Note.load(Note.class, note_id);
 		} else {
 			mNote = new Note();
 		}
 
 		// load data
-		etNote.setText(mNote.getContent());
+		final String content = mNote.getContent();
+		etNote.setText(content);
 	}
 
 	@Override
