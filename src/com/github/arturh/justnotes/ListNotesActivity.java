@@ -70,13 +70,17 @@ public class ListNotesActivity extends Activity implements OnItemClickListener {
 		lvNotes.setOnItemClickListener(this);
 
 		// fetch data
-		mNotes = new Select().from(Note.class).execute();
+		mNotes = queryNotes();
 
 		// load data
 		mLayoutInflater = LayoutInflater.from(this);
 
 		mAdapter = new NotesAdapter();
 		lvNotes.setAdapter(mAdapter);
+	}
+
+	private List<Note> queryNotes() {
+		return new Select().from(Note.class).execute();
 	}
 
 	@Override
@@ -109,6 +113,7 @@ public class ListNotesActivity extends Activity implements OnItemClickListener {
 	protected void onResume() {
 		super.onResume();
 
+		mNotes = queryNotes();
 		mAdapter.notifyDataSetChanged();
 	}
 }

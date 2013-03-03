@@ -12,7 +12,6 @@ public class EditNoteActivity extends Activity implements
 	private static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
 	
 	private EditText etNote;
-
 	private Note mNote;
 
 	@Override
