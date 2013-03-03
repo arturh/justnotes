@@ -4,5 +4,9 @@
         android:id="@+id/editnote_menu_delete"
         android:showAsAction="ifRoom"
         android:title="@string/editnote_menu_delete"/>
+    <item
+        android:id="@+id/editnote_menu_share"
+        android:showAsAction="ifRoom"
+        android:title="@string/editnote_menu_share"/>
 
 </menu>

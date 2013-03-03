@@ -5,5 +5,6 @@
     <string name="listnotes_menu_new">new</string>
     <string name="editnote_typehere">type here</string>
     <string name="editnote_menu_delete">delete</string>
+    <string name="editnote_menu_share">share</string>
 
 </resources>
