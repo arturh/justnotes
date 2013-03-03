@@ -3,6 +3,7 @@ package com.github.arturh.justnotes;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -10,7 +11,7 @@ import android.widget.TextView.OnEditorActionListener;
 public class EditNoteActivity extends Activity implements
 		OnEditorActionListener {
 	public static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
-	
+
 	private EditText etNote;
 	private Note mNote;
 
@@ -44,13 +45,20 @@ public class EditNoteActivity extends Activity implements
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();
-		
+
 		final String content = etNote.getText().toString();
 		mNote.setContent(content);
 		mNote.save();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(final Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.editnote, menu);
+		return true;
 	}
 }
