@@ -9,5 +9,6 @@
     <string name="editnote_toast_notesaved">note saved</string>
     <string name="editnote_toast_new_note">new note</string>
     <string name="editnote_confirmdelete_message">Confirm delete note?</string>
+    <string name="editnote_sharenote_subject">Share note</string>
 
 </resources>

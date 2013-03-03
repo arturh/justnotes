@@ -133,7 +133,7 @@ public class EditNoteActivity extends Activity {
 
 			final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
 			intent.setType("text/plain");
-			intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share note");
+			intent.putExtra(android.content.Intent.EXTRA_SUBJECT, R.string.editnote_sharenote_subject);
 			intent.putExtra(android.content.Intent.EXTRA_TEXT, etNote.getText()
 					.toString());
 			startActivity(intent);
