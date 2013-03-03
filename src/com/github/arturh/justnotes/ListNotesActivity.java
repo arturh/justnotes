@@ -2,25 +2,61 @@ package com.github.arturh.justnotes;
 
 import java.util.List;
 
-import com.activeandroid.Model;
-import com.activeandroid.query.Select;
-
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.activeandroid.query.Select;
 
 public class ListNotesActivity extends Activity implements OnItemClickListener {
 
+	private final class NotesAdapter extends BaseAdapter {
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View view = mLayoutInflater.inflate(R.layout.listnotes_item,
+					null);
+			final TextView tvTitle = (TextView) view
+					.findViewById(R.id.tvTitle);
+			tvTitle.setText(getItem(position).toString());
+			return view;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return getItem(position).getId();
+		}
+
+		@Override
+		public Note getItem(int position) {
+			return mNotes.get(position);
+		}
+
+		@Override
+		public int getCount() {
+			return mNotes.size();
+		}
+
+		@Override
+		public boolean hasStableIds() {
+			return true;
+		}
+	}
+
 	private ListView lvNotes;
 	private List<Note> mNotes;
-	private ArrayAdapter<Note> mAdapter;
+	private BaseAdapter mAdapter;
+	private LayoutInflater mLayoutInflater;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -37,8 +73,9 @@ public class ListNotesActivity extends Activity implements OnItemClickListener {
 		mNotes = new Select().from(Note.class).execute();
 
 		// load data
-		mAdapter = new ArrayAdapter<Note>(this,
-				android.R.layout.simple_list_item_1, mNotes);
+		mLayoutInflater = LayoutInflater.from(this);
+
+		mAdapter = new NotesAdapter();
 		lvNotes.setAdapter(mAdapter);
 	}
 
@@ -67,11 +104,11 @@ public class ListNotesActivity extends Activity implements OnItemClickListener {
 			// TODO
 		}
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+
 		mAdapter.notifyDataSetChanged();
 	}
 }
