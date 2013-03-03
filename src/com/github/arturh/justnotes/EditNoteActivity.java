@@ -123,7 +123,7 @@ public class EditNoteActivity extends Activity {
 
 			new AlertDialog.Builder(this)
 					.setIcon(android.R.drawable.ic_dialog_alert)
-					.setMessage("Confirm delete note?")
+					.setMessage(R.string.editnote_confirmdelete_message)
 					.setPositiveButton(android.R.string.yes,
 							new ConfirmDeletePositiveButtonListener())
 					.setNegativeButton(android.R.string.no, null).show();
