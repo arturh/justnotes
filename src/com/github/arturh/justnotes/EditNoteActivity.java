@@ -9,7 +9,7 @@ import android.widget.TextView.OnEditorActionListener;
 
 public class EditNoteActivity extends Activity implements
 		OnEditorActionListener {
-	private static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
+	public static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
 	
 	private EditText etNote;
 	private Note mNote;

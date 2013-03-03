@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,10 +23,8 @@ public class ListNotesActivity extends Activity implements OnItemClickListener {
 	private final class NotesAdapter extends BaseAdapter {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			View view = mLayoutInflater.inflate(R.layout.listnotes_item,
-					null);
-			final TextView tvTitle = (TextView) view
-					.findViewById(R.id.tvTitle);
+			View view = mLayoutInflater.inflate(R.layout.listnotes_item, null);
+			final TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
 			tvTitle.setText(getItem(position).toString());
 			return view;
 		}
@@ -105,7 +102,11 @@ public class ListNotesActivity extends Activity implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		if (parent == lvNotes) {
-			// TODO
+			final Long note_id = mNotes.get(position).getId();
+			assert note_id != null;
+			final Intent intent = new Intent(this, EditNoteActivity.class);
+			intent.putExtra(EditNoteActivity.EXTRA_NOTE_ID, note_id);
+			startActivity(intent);
 		}
 	}
 
