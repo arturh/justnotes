@@ -1,17 +1,40 @@
 package com.github.arturh.justnotes;
 
+import java.util.List;
+
+import com.activeandroid.Model;
+import com.activeandroid.query.Select;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
-public class ListNotesActivity extends Activity {
+public class ListNotesActivity extends Activity implements OnItemClickListener {
+
+	private ListView lvNotes;
+	private List<Note> mNotes;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listnotes_layout);
+
+		// find views
+		lvNotes = (ListView) findViewById(R.id.lvNotes);
+
+		// setListeners
+		lvNotes.setOnItemClickListener(this);
+		
+		// fetch data
+		mNotes = new Select().from(Note.class).execute();
+		
+		// load data
 	}
 
 	@Override
@@ -33,4 +56,10 @@ public class ListNotesActivity extends Activity {
 		}
 	}
 
+	@Override
+	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+		if (parent == lvNotes) {
+			// TODO
+		}
+	}
 }
