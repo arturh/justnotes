@@ -36,13 +36,20 @@ public class EditNoteActivity extends Activity implements
 
 		// load data
 		etNote.setText(mNote.getContent());
-		
-		
 	}
 
 	@Override
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		
+		final String content = etNote.getText().toString();
+		mNote.setContent(content);
+		mNote.save();
 	}
 }
