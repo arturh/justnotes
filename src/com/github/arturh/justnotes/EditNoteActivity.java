@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -50,9 +51,11 @@ public class EditNoteActivity extends Activity implements
 	protected void onPause() {
 		super.onPause();
 
-		final String content = etNote.getText().toString();
-		mNote.setContent(content);
-		mNote.save();
+		if (mNote != null) {
+			final String content = etNote.getText().toString();
+			mNote.setContent(content);
+			mNote.save();
+		}
 	}
 
 	@Override
@@ -60,5 +63,18 @@ public class EditNoteActivity extends Activity implements
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.editnote, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item) {
+		final int item_id = item.getItemId();
+		if (item_id == R.id.editnote_menu_delete) {
+			mNote.delete();
+			mNote = null;
+			finish();
+			return true;
+		} else {
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }
