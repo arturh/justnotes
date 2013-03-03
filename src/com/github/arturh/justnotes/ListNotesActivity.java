@@ -23,9 +23,15 @@ public class ListNotesActivity extends Activity implements OnItemClickListener {
 	private final class NotesAdapter extends BaseAdapter {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
+			final Note item = getItem(position);
+			final String content = item.getContent();
+			final String first_line = content.split("\n")[0];
+			
 			View view = mLayoutInflater.inflate(R.layout.listnotes_item, null);
 			final TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-			tvTitle.setText(getItem(position).toString());
+			
+			tvTitle.setText(first_line);
+			
 			return view;
 		}
 
