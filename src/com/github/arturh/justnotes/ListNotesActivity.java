@@ -13,12 +13,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class ListNotesActivity extends Activity implements OnItemClickListener {
 
 	private ListView lvNotes;
 	private List<Note> mNotes;
+	private ArrayAdapter<Note> mAdapter;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -30,11 +32,14 @@ public class ListNotesActivity extends Activity implements OnItemClickListener {
 
 		// setListeners
 		lvNotes.setOnItemClickListener(this);
-		
+
 		// fetch data
 		mNotes = new Select().from(Note.class).execute();
-		
+
 		// load data
+		mAdapter = new ArrayAdapter<Note>(this,
+				android.R.layout.simple_list_item_1, mNotes);
+		lvNotes.setAdapter(mAdapter);
 	}
 
 	@Override
@@ -61,5 +66,12 @@ public class ListNotesActivity extends Activity implements OnItemClickListener {
 		if (parent == lvNotes) {
 			// TODO
 		}
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		mAdapter.notifyDataSetChanged();
 	}
 }
