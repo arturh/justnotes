@@ -11,7 +11,8 @@
         android:layout_weight="1"
         android:ems="10"
         android:gravity="top"
-        android:hint="@string/editnote_typehere" >
+        android:hint="@string/editnote_typehere"
+        android:inputType="textNoSuggestions|textMultiLine" >
 
         <requestFocus />
     </EditText>
