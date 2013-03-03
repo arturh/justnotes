@@ -5,19 +5,45 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
-public class EditNoteActivity extends Activity implements
-		OnEditorActionListener {
+public class EditNoteActivity extends Activity {
+	private final class MyTextWatcher implements TextWatcher {
+		private boolean isFirst = true;
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+			if (isFirst) {
+				isFirst = false;
+			} else {
+				mNeedsSave = true;
+			}
+		}
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+		}
+
+		@Override
+		public void afterTextChanged(Editable s) {
+		}
+	}
+
 	public static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
 
 	private EditText etNote;
 	private Note mNote;
+	private boolean mNeedsSave;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,36 +54,36 @@ public class EditNoteActivity extends Activity implements
 		etNote = (EditText) findViewById(R.id.etNote);
 
 		// set listeners
-		etNote.setOnEditorActionListener(this);
+		etNote.addTextChangedListener(new MyTextWatcher());
 
 		// fetch data
 		final Bundle extras = getIntent().getExtras();
 		if (extras != null && extras.containsKey(EXTRA_NOTE_ID)) {
 			final long note_id = extras.getLong(EXTRA_NOTE_ID);
 			mNote = Note.load(Note.class, note_id);
+			mNeedsSave = false;
 		} else {
 			mNote = new Note();
+			mNeedsSave = true;
 		}
 
 		// load data
 		final String content = mNote.getContent();
 		etNote.setText(content);
-	}
 
-	@Override
-	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 
-		if (mNote != null) {
+		if (mNote != null && mNeedsSave) {
 			final String content = etNote.getText().toString();
 			mNote.setContent(content);
 			mNote.save();
+
+			Toast.makeText(this, R.string.editnote_toast_notesaved,
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -92,14 +118,15 @@ public class EditNoteActivity extends Activity implements
 
 			return true;
 		} else if (item_id == R.id.editnote_menu_share) {
-			
+
 			final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-	        intent.setType("text/plain");
-	        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share note");
-	        intent.putExtra(android.content.Intent.EXTRA_TEXT, etNote.getText().toString());
-	        startActivity(intent);
-	        
-	        return true;
+			intent.setType("text/plain");
+			intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share note");
+			intent.putExtra(android.content.Intent.EXTRA_TEXT, etNote.getText()
+					.toString());
+			startActivity(intent);
+
+			return true;
 		} else {
 			return super.onOptionsItemSelected(item);
 		}
