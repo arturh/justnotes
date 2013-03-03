@@ -6,10 +6,15 @@
     android:orientation="vertical" >
 
     <EditText
-        android:gravity="top"
+        android:id="@+id/etNote"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:hint="@string/editnote_typehere" />
+        android:ems="10"
+        android:gravity="top"
+        android:hint="@string/editnote_typehere" >
+
+        <requestFocus />
+    </EditText>
 
 </LinearLayout>
