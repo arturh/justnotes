@@ -1,6 +1,8 @@
 package com.github.arturh.justnotes;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -67,11 +69,24 @@ public class EditNoteActivity extends Activity implements
 
 	@Override
 	public boolean onOptionsItemSelected(final MenuItem item) {
+		
 		final int item_id = item.getItemId();
 		if (item_id == R.id.editnote_menu_delete) {
-			mNote.delete();
-			mNote = null;
-			finish();
+			
+			new AlertDialog.Builder(this)
+			.setIcon(android.R.drawable.ic_dialog_alert)
+			.setMessage("Confirm delete note?")
+			.setPositiveButton(android.R.string.yes,  new DialogInterface.OnClickListener(){
+				@Override
+				public void onClick(final DialogInterface dialog, final int which) {
+					mNote.delete();
+					mNote = null;
+					finish();
+				}
+			})
+			.setNegativeButton(android.R.string.no, null)
+			.show();
+			
 			return true;
 		} else {
 			return super.onOptionsItemSelected(item);
