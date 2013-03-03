@@ -71,14 +71,24 @@ public class EditNoteActivity extends Activity {
 		etNote.addTextChangedListener(new MyTextWatcher());
 
 		// fetch data
-		final Bundle extras = getIntent().getExtras();
-		if (extras != null && extras.containsKey(EXTRA_NOTE_ID)) {
+		final Intent intent = getIntent();
+		final Bundle extras = intent.getExtras();
+		final String action = intent.getAction();
+		final String text = intent.getStringExtra(Intent.EXTRA_TEXT);
+		if (Intent.ACTION_SEND.equals(action) && text != null) {
+			mNote = new Note();
+			mNote.setContent(text);
+			mNeedsSave = true;
+		} else if (extras != null && extras.containsKey(EXTRA_NOTE_ID)) {
 			final long note_id = extras.getLong(EXTRA_NOTE_ID);
 			mNote = Note.load(Note.class, note_id);
 			mNeedsSave = false;
 		} else {
 			mNote = new Note();
 			mNeedsSave = true;
+
+			Toast.makeText(this, R.string.editnote_toast_new_note,
+					Toast.LENGTH_SHORT).show();
 		}
 
 		// load data
