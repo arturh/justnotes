@@ -3,5 +3,6 @@
 
     <string name="app_name">JustNotes</string>
     <string name="listnotes_menu_new">new</string>
+    <string name="editnote_typehere">type here</string>
 
 </resources>
