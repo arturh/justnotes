@@ -13,6 +13,8 @@ public class EditNoteActivity extends Activity implements
 	
 	private EditText etNote;
 
+	private Note mNote;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,10 +31,13 @@ public class EditNoteActivity extends Activity implements
 		if (extras != null && extras.containsKey(EXTRA_NOTE_ID)) {
 			final long note_id = extras.getLong(EXTRA_NOTE_ID);
 		} else {
-			// new note
+			mNote = new Note();
 		}
 
 		// load data
+		etNote.setText(mNote.getContent());
+		
+		
 	}
 
 	@Override
