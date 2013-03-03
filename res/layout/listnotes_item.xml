@@ -9,6 +9,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textIsSelectable="false" />
+        android:textIsSelectable="false"
+        android:textSize="30sp" />
 
 </LinearLayout>
