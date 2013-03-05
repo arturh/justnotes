@@ -26,6 +26,12 @@ public class EditNoteActivity extends Activity {
 			finish();
 		}
 	}
+	
+	@Override
+	public void finish() {
+		super.finish();
+		overridePendingTransition(0, 0);
+	}
 
 	private final class MyTextWatcher implements TextWatcher {
 		private boolean isFirst = true;
@@ -59,6 +65,7 @@ public class EditNoteActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition(0, 0);
 		setContentView(R.layout.editnote_layout);
 
 		// find views

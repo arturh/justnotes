@@ -26,12 +26,12 @@ public class ListNotesActivity extends Activity implements OnItemClickListener {
 			final Note item = getItem(position);
 			final String content = item.getContent();
 			final String first_line = content.split("\n")[0];
-			
+
 			View view = mLayoutInflater.inflate(R.layout.listnotes_item, null);
 			final TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-			
+
 			tvTitle.setText(first_line);
-			
+
 			return view;
 		}
 
@@ -64,6 +64,7 @@ public class ListNotesActivity extends Activity implements OnItemClickListener {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition(0, 0);
 		setContentView(R.layout.listnotes_layout);
 
 		// find views
@@ -122,5 +123,11 @@ public class ListNotesActivity extends Activity implements OnItemClickListener {
 
 		mNotes = queryNotes();
 		mAdapter.notifyDataSetChanged();
+	}
+
+	@Override
+	public void finish() {
+		super.finish();
+		overridePendingTransition(0, 0);
 	}
 }
