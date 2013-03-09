@@ -17,7 +17,9 @@ public class EditNoteActivity extends Activity {
 			DialogInterface.OnClickListener {
 		@Override
 		public void onClick(final DialogInterface dialog, final int which) {
-			mNote.delete();
+			if (mNote != null && mNote.getId() != null) {
+				mNote.delete();
+			}
 			mNote = null;
 
 			Toast.makeText(EditNoteActivity.this, "note deleted",
@@ -26,7 +28,7 @@ public class EditNoteActivity extends Activity {
 			finish();
 		}
 	}
-	
+
 	@Override
 	public void finish() {
 		super.finish();
@@ -140,7 +142,8 @@ public class EditNoteActivity extends Activity {
 
 			final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
 			intent.setType("text/plain");
-			intent.putExtra(android.content.Intent.EXTRA_SUBJECT, R.string.editnote_sharenote_subject);
+			intent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+					R.string.editnote_sharenote_subject);
 			intent.putExtra(android.content.Intent.EXTRA_TEXT, etNote.getText()
 					.toString());
 			startActivity(intent);
