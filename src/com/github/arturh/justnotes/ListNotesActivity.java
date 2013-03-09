@@ -60,6 +60,7 @@ public class ListNotesActivity extends Activity implements OnItemClickListener {
 	private List<Note> mNotes;
 	private BaseAdapter mAdapter;
 	private LayoutInflater mLayoutInflater;
+	private View vEmptylvNotes;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -69,9 +70,11 @@ public class ListNotesActivity extends Activity implements OnItemClickListener {
 
 		// find views
 		lvNotes = (ListView) findViewById(R.id.lvNotes);
-
+		vEmptylvNotes = findViewById(R.id.vEmptylvNotes);
+		
 		// setListeners
 		lvNotes.setOnItemClickListener(this);
+		lvNotes.setEmptyView(vEmptylvNotes);
 
 		// fetch data
 		mNotes = queryNotes();
